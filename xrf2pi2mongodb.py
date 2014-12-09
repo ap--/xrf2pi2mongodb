@@ -151,8 +151,8 @@ if __name__ == "__main__":
 
     tp = MongoCurrentPublisher("temperature")
     bp = MongoCurrentPublisher("battery")
-    queue = SensorTxQueue(ID2FIELD.values(), key=TQ_KEY, interval=65.)
-    battqueue = SensorTxQueue(ID2FIELD.values(), key=BQ_KEY, interval=630.)
+    queue = SensorTxQueue(ID2FIELD.values(), key=TQ_KEY, interval=65., mongo=tp)
+    battqueue = SensorTxQueue(ID2FIELD.values(), key=BQ_KEY, interval=630., mongo=bp)
 
     work = XRFReadout(ID2FIELD, queue.add_value, battqueue.add_value)
     work.start()
