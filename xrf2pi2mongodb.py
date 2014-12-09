@@ -17,8 +17,12 @@ class MongoCurrentPublisher(object):
         self._name = _name
 
     def update(self, valuedict):
-        self.coll.find_and_modify({'_name': self._name}, update=valuedict)
-
+        v = dict(valuedict)
+        v['_name'] = self._name
+        try:
+            self.coll.find_and_modify({'_name': self._name}, update=v)
+        except:
+            print "Mongodb Error?"
 
 class SensorTxQueue(object):
 
